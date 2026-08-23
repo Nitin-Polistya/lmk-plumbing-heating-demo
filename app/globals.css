@@ -1,26 +1,93 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --color-navy: #0E2238;
+    --color-navy-dark: #081524;
+    --color-engineer-blue: #1666D9;
+    --color-boiler-blue: #5AA9FF;
+    --color-flame-orange: #F47A20;
+    --color-warm-amber: #FFB347;
+    --color-off-white: #F7FAFD;
+    --color-cool-mist: #E8EFF6;
+    --color-steel-slate: #6B7C8F;
+    --color-text-charcoal: #121A24;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    color: var(--color-text-charcoal);
+    background-color: var(--color-off-white);
+    font-family: var(--font-inter), system-ui, -apple-system, sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-manrope), system-ui, -apple-system, sans-serif;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Asymmetrical Hero Frame styling */
+.hero-asymmetric-frame {
+  position: relative;
+  border-radius: 2rem 1.25rem 2.5rem 0.75rem;
+  clip-path: polygon(
+    0% 0%, 
+    100% 0%, 
+    100% calc(100% - 36px), 
+    calc(100% - 36px) 100%, 
+    0% 100%
+  );
+  box-shadow: 0 25px 50px -12px rgba(14, 34, 56, 0.25),
+              0 0 0 1px rgba(22, 102, 217, 0.15);
+}
+
+.hero-frame-outer {
+  position: relative;
+  padding: 10px;
+  background: linear-gradient(135deg, rgba(22, 102, 217, 0.2) 0%, rgba(244, 122, 32, 0.2) 100%);
+  border-radius: 2.25rem 1.5rem 2.75rem 1rem;
+}
+
+.hero-frame-outer::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, #1666D9 0%, #5AA9FF 40%, #F47A20 100%);
+  opacity: 0.7;
+  z-index: 0;
+}
+
+.hero-frame-inner {
+  position: relative;
+  z-index: 1;
+  border-radius: 2rem 1.25rem 2.5rem 0.75rem;
+  overflow: hidden;
+  background: #0E2238;
+}
+
+.chamfer-badge {
+  clip-path: polygon(12px 0%, 100% 0%, calc(100% - 12px) 100%, 0% 100%);
+}
+
+.glass-nav {
+  background: rgba(14, 34, 56, 0.88);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(232, 239, 246, 0.1);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #0E2238;
+}
+::-webkit-scrollbar-thumb {
+  background: #1666D9;
+  border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #F47A20;
 }
