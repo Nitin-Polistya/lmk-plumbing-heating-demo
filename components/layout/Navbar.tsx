@@ -43,13 +43,18 @@ export default function Navbar({ onOpenQuoteModal }: NavbarProps) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between">
             {/* Left: Brand Logo & Title */}
-            <Link href="/" className="flex items-center gap-3 group">
-              <div className="relative w-11 h-11 sm:w-12 sm:h-12 rounded-full overflow-hidden border-2 border-[#0F1720] shadow-sm group-hover:scale-105 transition-transform duration-300">
+            <a
+              href="#hero"
+              aria-label="LMK Plumbing & Heating Services — Home"
+              className="flex items-center gap-3 group"
+            >
+              <div className="relative w-12 h-12 sm:w-14 sm:h-14 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform duration-300">
                 <Image
                   src="/images/lmk-original-logo.png"
-                  alt="LMK Plumbing & Heating Services Original Logo"
-                  fill
-                  className="object-contain"
+                  alt="LMK Plumbing & Heating Services"
+                  width={58}
+                  height={58}
+                  className="w-full h-full object-contain"
                   priority
                 />
               </div>
@@ -61,7 +66,7 @@ export default function Navbar({ onOpenQuoteModal }: NavbarProps) {
                   &amp; Heating Services • Wakefield
                 </span>
               </div>
-            </Link>
+            </a>
 
             {/* Middle: Nav Links (Desktop) */}
             <nav className="hidden lg:flex items-center gap-6 xl:gap-8">

@@ -11,7 +11,7 @@ interface LMKHeroProps {
 
 export default function LMKHero({ onOpenQuoteModal }: LMKHeroProps) {
   return (
-    <section className="relative pt-28 pb-16 lg:pt-36 lg:pb-24 bg-[#FCFCFD] overflow-hidden">
+    <section id="hero" className="relative pt-28 pb-16 lg:pt-36 lg:pb-24 bg-[#FCFCFD] overflow-hidden scroll-mt-24">
       {/* Background Decorative Lines & Light Rose Accent Gradient */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <div className="absolute top-1/4 -left-32 w-96 h-96 rounded-full bg-[#FCE6F6]/60 blur-3xl opacity-70" />

@@ -14,19 +14,24 @@ export default function Footer() {
           
           {/* Col 1: Brand & Logo */}
           <div className="flex flex-col">
-            <Link href="/" className="flex items-center gap-3 mb-4">
-              <div className="relative w-12 h-12 rounded-full overflow-hidden border border-white/20">
+            <a
+              href="#hero"
+              aria-label="LMK Plumbing & Heating Services — Home"
+              className="flex items-center gap-3 mb-4 group"
+            >
+              <div className="relative w-14 h-14 sm:w-16 sm:h-16 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform duration-300">
                 <Image
                   src="/images/lmk-original-logo.png"
-                  alt="LMK Logo"
-                  fill
-                  className="object-contain"
+                  alt="LMK Plumbing & Heating Services"
+                  width={64}
+                  height={64}
+                  className="w-full h-full object-contain"
                 />
               </div>
-              <span className="font-['Barlow_Condensed'] text-2xl font-black tracking-wide text-white uppercase">
+              <span className="font-['Barlow_Condensed'] text-2xl font-black tracking-wide text-white uppercase group-hover:text-[#E317A8] transition-colors">
                 LMK <span className="text-[#E317A8]">PLUMBING</span>
               </span>
-            </Link>
+            </a>
 
             <p className="text-xs text-[#EEF2F6]/60 leading-relaxed font-normal mb-4">
               {SITE_CONFIG.motto} Local domestic plumbing &amp; heating services from Lee Kovacs around Wrenthorpe and Wakefield.
