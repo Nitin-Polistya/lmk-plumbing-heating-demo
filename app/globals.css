@@ -2,92 +2,78 @@
 
 @layer base {
   :root {
-    --color-navy: #0E2238;
-    --color-navy-dark: #081524;
-    --color-engineer-blue: #1666D9;
-    --color-boiler-blue: #5AA9FF;
-    --color-flame-orange: #F47A20;
-    --color-warm-amber: #FFB347;
-    --color-off-white: #F7FAFD;
-    --color-cool-mist: #E8EFF6;
-    --color-steel-slate: #6B7C8F;
-    --color-text-charcoal: #121A24;
+    --color-accent-pink: #E317A8;
+    --color-rose-tint: #FCE6F6;
+    --color-navy-black: #0F1720;
+    --color-slate-gray: #667085;
+    --color-paper-white: #FCFCFD;
+    --color-mist-gray: #EEF2F6;
+    --color-pure-white: #FFFFFF;
+    --color-border-gray: #D9E0E7;
   }
 
   html {
     scroll-behavior: smooth;
-    color: var(--color-text-charcoal);
-    background-color: var(--color-off-white);
-    font-family: var(--font-inter), system-ui, -apple-system, sans-serif;
+    color: var(--color-navy-black);
+    background-color: var(--color-paper-white);
+    font-family: var(--font-manrope), system-ui, -apple-system, sans-serif;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-manrope), system-ui, -apple-system, sans-serif;
+    font-family: var(--font-barlow), var(--font-manrope), sans-serif;
+    letter-spacing: -0.02em;
   }
-}
 
-/* Asymmetrical Hero Frame styling */
-.hero-asymmetric-frame {
-  position: relative;
-  border-radius: 2rem 1.25rem 2.5rem 0.75rem;
-  clip-path: polygon(
-    0% 0%, 
-    100% 0%, 
-    100% calc(100% - 36px), 
-    calc(100% - 36px) 100%, 
-    0% 100%
-  );
-  box-shadow: 0 25px 50px -12px rgba(14, 34, 56, 0.25),
-              0 0 0 1px rgba(22, 102, 217, 0.15);
-}
-
-.hero-frame-outer {
-  position: relative;
-  padding: 10px;
-  background: linear-gradient(135deg, rgba(22, 102, 217, 0.2) 0%, rgba(244, 122, 32, 0.2) 100%);
-  border-radius: 2.25rem 1.5rem 2.75rem 1rem;
-}
-
-.hero-frame-outer::before {
-  content: '';
-  position: absolute;
-  inset: -2px;
-  border-radius: inherit;
-  background: linear-gradient(135deg, #1666D9 0%, #5AA9FF 40%, #F47A20 100%);
-  opacity: 0.7;
-  z-index: 0;
-}
-
-.hero-frame-inner {
-  position: relative;
-  z-index: 1;
-  border-radius: 2rem 1.25rem 2.5rem 0.75rem;
-  overflow: hidden;
-  background: #0E2238;
-}
-
-.chamfer-badge {
-  clip-path: polygon(12px 0%, 100% 0%, calc(100% - 12px) 100%, 0% 100%);
-}
-
-.glass-nav {
-  background: rgba(14, 34, 56, 0.88);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border-bottom: 1px solid rgba(232, 239, 246, 0.1);
+  .font-mono {
+    font-family: var(--font-mono), monospace;
+  }
 }
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #0E2238;
+  background: #EEF2F6;
 }
 ::-webkit-scrollbar-thumb {
-  background: #1666D9;
-  border-radius: 5px;
+  background: #E317A8;
+  border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #F47A20;
+  background: #B80E86;
+}
+
+/* Frosted glass utility for navbar */
+.glass-nav-light {
+  background: rgba(252, 252, 253, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid #D9E0E7;
+}
+
+/* Asymmetric Hero Frame styling for LMK */
+.hero-asymmetric-frame {
+  position: relative;
+  border-radius: 1.5rem;
+  overflow: hidden;
+  box-shadow: 0 20px 40px -15px rgba(15, 23, 32, 0.08), 0 0 0 1px #D9E0E7;
+}
+
+.pink-glow {
+  box-shadow: 0 8px 30px rgba(227, 23, 168, 0.25);
+}
+
+.pink-glow-lg {
+  box-shadow: 0 12px 40px rgba(227, 23, 168, 0.35);
+}
+
+/* Badge styling */
+.trade-badge {
+  clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+}
+
+/* Smooth transitions */
+.transition-smooth {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }

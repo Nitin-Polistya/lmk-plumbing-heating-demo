@@ -1,120 +1,124 @@
 'use client';
 
-import React, { useRef } from 'react';
-import { SectionReveal, ContentItem } from '../motion/SectionReveal';
-import { SectionVisual } from '../visual/SectionVisual';
-import { SERVICES_LIST, BUSINESS_DETAILS } from '@/lib/site-data';
-import { Wrench, ShieldCheck, Flame, AlertTriangle, Droplets, ArrowRight } from 'lucide-react';
+import Image from 'next/image';
+import { motion } from 'framer-motion';
+import { Flame, ThermometerSun, Wrench, Bath, Droplets, Zap, Check, ArrowRight } from 'lucide-react';
+import { CORE_SERVICES } from '@/lib/site-data';
 
-const iconMap: Record<string, React.ReactNode> = {
-  Wrench: <Wrench className="w-5 h-5 text-[#1666D9]" />,
-  SearchCheck: <ShieldCheck className="w-5 h-5 text-[#1666D9]" />,
-  ShieldCheck: <ShieldCheck className="w-5 h-5 text-[#1666D9]" />,
-  Flame: <Flame className="w-5 h-5 text-[#F47A20]" />,
-  AlertTriangle: <AlertTriangle className="w-5 h-5 text-[#F47A20]" />,
-  Droplets: <Droplets className="w-5 h-5 text-[#1666D9]" />,
+interface ServicesSectionProps {
+  onOpenQuoteModal: () => void;
+}
+
+const iconMap: Record<string, any> = {
+  Flame,
+  ThermometerSun,
+  Wrench,
+  Bath,
+  Droplets,
+  Zap,
 };
 
-export const ServicesSection: React.FC = () => {
-  const sectionRef = useRef<HTMLElement>(null);
-  const primaryService = SERVICES_LIST.find((s) => s.id === 'boiler-repairs') || SERVICES_LIST[0];
-  const emergencyService = SERVICES_LIST.find((s) => s.id === 'emergency-callouts') || SERVICES_LIST[4];
-  const supportingServices = SERVICES_LIST.filter(
-    (s) => s.id !== primaryService.id && s.id !== emergencyService.id
-  );
-
+export default function ServicesSection({ onOpenQuoteModal }: ServicesSectionProps) {
   return (
-    <section
-      ref={sectionRef}
-      id="services"
-      data-side="right"
-      className="relative w-full min-h-[clamp(640px,80svh,780px)] flex items-center overflow-hidden bg-[#F7FAFD] py-12 border-b border-[#E8EFF6]"
-    >
-      {/* Section Visual (Right Full-Bleed 54vw) */}
-      <SectionVisual
-        src="/images/service_detail.png"
-        alt="High efficiency boiler installation and heating service"
-        side="right"
-        bgColor="#F7FAFD"
-        sectionRef={sectionRef}
-      />
-
-      {/* Content Container Aligned with 6vw Left Margin & 40vw Max Width */}
-      <SectionReveal sectionRef={sectionRef} className="relative z-30 w-full lg:w-[min(40vw,680px)] lg:ml-[6vw] px-4 sm:px-6 lg:px-0 py-12 lg:py-16">
-        <div className="space-y-5">
-          <ContentItem sectionRef={sectionRef} type="eyebrow">
-            <div className="inline-flex items-center gap-2 bg-blue-50 border border-blue-100 text-[#1666D9] px-3.5 py-1.5 rounded-full text-xs font-extrabold tracking-wider uppercase font-mono">
-              <span>SPECIALIST CAPABILITIES</span>
+    <section id="services" className="py-20 lg:py-28 bg-[#FCFCFD] text-[#0F1720]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        {/* Section Header */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 pb-8 border-b border-[#D9E0E7]">
+          <div>
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded bg-[#FCE6F6] border border-[#E317A8]/30 mb-4">
+              <span className="w-2 h-2 rounded-full bg-[#E317A8]" />
+              <span className="font-mono text-xs font-bold text-[#E317A8] uppercase tracking-wider">
+                CORE TRADE SERVICES
+              </span>
             </div>
-          </ContentItem>
-
-          <ContentItem sectionRef={sectionRef} type="heading">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#0E2238] tracking-tight font-manrope">
-              Heating & plumbing services
+            <h2 className="font-['Barlow_Condensed'] text-4xl sm:text-5xl lg:text-6xl font-black uppercase tracking-tight text-[#0F1720] leading-none">
+              LOCAL PLUMBING <span className="text-[#E317A8]">&amp; HEATING</span>
             </h2>
-          </ContentItem>
-
-          <ContentItem sectionRef={sectionRef} type="paragraph">
-            <p className="text-base text-[#6B7C8F] leading-relaxed">
-              Fast breakdown diagnosis, servicing and modern heating support across Wakefield.
-            </p>
-          </ContentItem>
-
-          {/* Service Highlights */}
-          <ContentItem sectionRef={sectionRef} type="features">
-            <div className="space-y-3 pt-1">
-              <div className="bg-[#0E2238] text-white p-5 rounded-2xl shadow-md border border-white/10 space-y-2">
-                <div className="flex items-center justify-between gap-3">
-                  <div className="flex items-center gap-2 text-[#5AA9FF] font-bold text-sm font-manrope">
-                    <Wrench className="w-4 h-4 text-[#F47A20]" />
-                    <span>Boiler Repairs & Breakdown Response</span>
-                  </div>
-                  <span className="text-[10px] font-mono uppercase bg-[#F47A20] text-white px-2 py-0.5 rounded-full font-bold">
-                    Primary
-                  </span>
-                </div>
-                <p className="text-xs text-[#E8EFF6]/90 leading-relaxed">
-                  Heating and hot water breakdown repairs, fault isolation, and safety checks carried out to Gas Safe standards.
-                </p>
-              </div>
-
-              <div className="bg-gradient-to-r from-[#1666D9] to-[#0E2238] text-white p-5 rounded-2xl shadow-md border border-white/10 space-y-2">
-                <div className="flex items-center justify-between gap-3">
-                  <div className="flex items-center gap-2 text-white font-bold text-sm font-manrope">
-                    <AlertTriangle className="w-4 h-4 text-[#FFB347]" />
-                    <span>Emergency Call-Outs (7AM - 10PM)</span>
-                  </div>
-                  <span className="text-[10px] font-mono uppercase bg-white/20 text-white px-2 py-0.5 rounded-full font-bold">
-                    7 Days
-                  </span>
-                </div>
-                <p className="text-xs text-white/90 leading-relaxed">
-                  Direct phone response across Wakefield for sudden leaks, cold radiators, boiler lockouts, and pressure loss.
-                </p>
-              </div>
-            </div>
-          </ContentItem>
-
-          {/* Supporting Service Links Pill Bar */}
-          <ContentItem sectionRef={sectionRef} type="cta">
-            <div className="pt-1 flex flex-wrap items-center gap-2.5">
-              {supportingServices.map((service) => (
-                <a
-                  key={service.id}
-                  href={BUSINESS_DETAILS.whatsappHref}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 bg-white px-3.5 py-2 rounded-xl border border-[#E8EFF6] text-xs font-bold text-[#0E2238] hover:border-[#1666D9] hover:text-[#1666D9] shadow-2xs transition-colors"
-                >
-                  {iconMap[service.iconName]}
-                  <span>{service.title}</span>
-                  <ArrowRight className="w-3.5 h-3.5 text-[#6B7C8F]" />
-                </a>
-              ))}
-            </div>
-          </ContentItem>
+          </div>
+          <p className="text-base text-[#667085] max-w-md mt-4 md:mt-0 font-normal">
+            From minor repairs to complete central heating and boiler overhauls. Honest work delivered direct by Lee Kovacs.
+          </p>
         </div>
-      </SectionReveal>
+
+        {/* 6 Services Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {CORE_SERVICES.map((service, idx) => {
+            const IconComponent = iconMap[service.iconName] || Wrench;
+
+            return (
+              <motion.div
+                key={service.id}
+                initial={{ opacity: 0, y: 25 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-50px' }}
+                transition={{ duration: 0.5, delay: idx * 0.08 }}
+                className="bg-[#FFFFFF] rounded-2xl border border-[#D9E0E7] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group hover:border-[#E317A8]/50"
+              >
+                <div>
+                  {/* Service Card Image Header */}
+                  <div className="relative aspect-[16/10] overflow-hidden bg-[#0F1720]">
+                    <Image
+                      src={service.image}
+                      alt={`${service.title} Wakefield`}
+                      fill
+                      className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0F1720]/80 via-transparent to-transparent" />
+
+                    {/* Number & Icon Overlay */}
+                    <div className="absolute top-4 left-4 right-4 flex items-center justify-between">
+                      <span className="font-mono text-xs font-extrabold px-3 py-1 rounded bg-[#0F1720]/90 text-white border border-white/10">
+                        {service.number}
+                      </span>
+                      <div className="w-9 h-9 rounded-lg bg-[#E317A8] text-white flex items-center justify-center shadow-md">
+                        <IconComponent className="w-5 h-5" />
+                      </div>
+                    </div>
+
+                    <div className="absolute bottom-4 left-4 right-4">
+                      <h3 className="font-['Barlow_Condensed'] text-2xl font-black uppercase text-white tracking-wide leading-tight">
+                        {service.title}
+                      </h3>
+                    </div>
+                  </div>
+
+                  {/* Card Content Body */}
+                  <div className="p-6">
+                    <p className="text-sm text-[#667085] leading-relaxed mb-6 font-normal">
+                      {service.fullDesc}
+                    </p>
+
+                    {/* Service Sub-bullets */}
+                    <div className="space-y-2.5 mb-6">
+                      {service.bullets.map((bullet) => (
+                        <div key={bullet} className="flex items-start gap-2.5">
+                          <Check className="w-4 h-4 text-[#E317A8] shrink-0 mt-0.5" />
+                          <span className="text-xs font-semibold text-[#0F1720]">
+                            {bullet}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Bottom Action Footer */}
+                <div className="px-6 pb-6 pt-0">
+                  <button
+                    onClick={onOpenQuoteModal}
+                    className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-[#EEF2F6] group-hover:bg-[#E317A8] text-[#0F1720] group-hover:text-white font-['Barlow_Condensed'] font-extrabold text-sm tracking-wider uppercase transition-colors"
+                  >
+                    <span>ENQUIRE FOR THIS SERVICE</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </button>
+                </div>
+              </motion.div>
+            );
+          })}
+        </div>
+
+      </div>
     </section>
   );
-};
+}

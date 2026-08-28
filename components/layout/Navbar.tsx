@@ -1,160 +1,170 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
-import { Phone, Menu, X, Flame, MessageSquare } from 'lucide-react';
-import { BUSINESS_DETAILS } from '@/lib/site-data';
+import { Phone, Menu, X, ChevronRight } from 'lucide-react';
+import { SITE_CONFIG } from '@/lib/site-data';
 
-export const Navbar: React.FC = () => {
-  const [scrolled, setScrolled] = useState(false);
+interface NavbarProps {
+  onOpenQuoteModal: () => void;
+}
+
+export default function Navbar({ onOpenQuoteModal }: NavbarProps) {
+  const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState('');
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 20) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
-
-      // Active section calculation
-      const sections = ['services', 'why-us', 'about-darren', 'reviews', 'areas'];
-      for (const sectionId of sections) {
-        const el = document.getElementById(sectionId);
-        if (el) {
-          const rect = el.getBoundingClientRect();
-          if (rect.top <= 120 && rect.bottom >= 120) {
-            setActiveSection(sectionId);
-            break;
-          }
-        }
-      }
+      setIsScrolled(window.scrollY > 20);
     };
-
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const navLinks = [
-    { name: 'Services', href: '#services', id: 'services' },
-    { name: 'Why Gasgenics', href: '#why-us', id: 'why-us' },
-    { name: 'About Darren', href: '#about-darren', id: 'about-darren' },
-    { name: 'Reviews', href: '#reviews', id: 'reviews' },
-    { name: 'Areas Covered', href: '#areas', id: 'areas' },
+    { label: 'SERVICES', href: '#services' },
+    { label: 'PROBLEM SOLVER', href: '#problems' },
+    { label: 'WHY LMK', href: '#why-lmk' },
+    { label: 'ABOUT', href: '#about' },
+    { label: 'REVIEWS', href: '#reviews' },
+    { label: 'AREAS', href: '#areas' },
   ];
 
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? 'glass-nav py-3 shadow-lg'
-          : 'bg-[#0E2238] py-4 border-b border-white/10'
-      }`}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between">
-          
-          {/* Logo & Business Name */}
-          <Link href="/" className="flex items-center gap-3 group">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-[#1666D9] to-[#F47A20] flex items-center justify-center shadow-md group-hover:scale-105 transition-transform">
-              <Flame className="w-6 h-6 text-white" />
-            </div>
-            <div>
-              <span className="font-extrabold text-lg sm:text-xl tracking-tight text-white block leading-tight font-manrope">
-                Gasgenics
-              </span>
-              <span className="text-[10px] sm:text-xs text-[#5AA9FF] font-semibold tracking-wider uppercase block">
-                Heating & Plumbing
-              </span>
-            </div>
-          </Link>
+    <>
+      <header
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+          isScrolled
+            ? 'glass-nav-light py-2.5 shadow-sm'
+            : 'bg-[#FCFCFD]/90 backdrop-blur-md py-4 border-b border-[#D9E0E7]'
+        }`}
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between">
+            {/* Left: Brand Logo & Title */}
+            <Link href="/" className="flex items-center gap-3 group">
+              <div className="relative w-11 h-11 sm:w-12 sm:h-12 rounded-full overflow-hidden border-2 border-[#0F1720] shadow-sm group-hover:scale-105 transition-transform duration-300">
+                <Image
+                  src="/images/lmk-original-logo.png"
+                  alt="LMK Plumbing & Heating Services Original Logo"
+                  fill
+                  className="object-contain"
+                  priority
+                />
+              </div>
+              <div className="flex flex-col">
+                <span className="font-['Barlow_Condensed'] text-xl sm:text-2xl font-extrabold tracking-tight text-[#0F1720] leading-none group-hover:text-[#E317A8] transition-colors">
+                  LMK <span className="text-[#E317A8]">PLUMBING</span>
+                </span>
+                <span className="text-[10px] font-bold tracking-wider text-[#667085] uppercase font-mono mt-0.5">
+                  &amp; Heating Services • Wakefield
+                </span>
+              </div>
+            </Link>
 
-          {/* Desktop Nav Items */}
-          <nav className="hidden lg:flex items-center gap-8">
-            {navLinks.map((link) => (
+            {/* Middle: Nav Links (Desktop) */}
+            <nav className="hidden lg:flex items-center gap-6 xl:gap-8">
+              {navLinks.map((link) => (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  className="text-xs tracking-wider font-extrabold font-['Barlow_Condensed'] text-[#0F1720] hover:text-[#E317A8] uppercase transition-colors"
+                >
+                  {link.label}
+                </a>
+              ))}
+            </nav>
+
+            {/* Right: Phone & CTA Button (Desktop) */}
+            <div className="hidden md:flex items-center gap-4">
               <a
-                key={link.id}
-                href={link.href}
-                className={`text-sm font-medium transition-colors hover:text-[#5AA9FF] relative py-1 ${
-                  activeSection === link.id ? 'text-[#5AA9FF] font-semibold' : 'text-gray-200'
-                }`}
+                href={SITE_CONFIG.phoneLink}
+                className="flex items-center gap-2 px-3.5 py-2 rounded-lg bg-[#EEF2F6] hover:bg-[#FCE6F6] text-[#0F1720] hover:text-[#E317A8] transition-all border border-[#D9E0E7]"
               >
-                {link.name}
-                {activeSection === link.id && (
-                  <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#F47A20] rounded-full" />
-                )}
+                <div className="w-7 h-7 rounded-full bg-[#E317A8] flex items-center justify-center text-white">
+                  <Phone className="w-3.5 h-3.5" />
+                </div>
+                <div className="flex flex-col text-left">
+                  <span className="text-[9px] font-bold uppercase tracking-wider text-[#667085] font-mono leading-none">
+                    CALL / TEXT LEE
+                  </span>
+                  <span className="font-mono text-xs font-extrabold text-[#0F1720] leading-tight">
+                    {SITE_CONFIG.phoneDisplay}
+                  </span>
+                </div>
               </a>
-            ))}
-          </nav>
 
-          {/* Right Desktop CTA */}
-          <div className="hidden sm:flex items-center gap-3">
-            <a
-              href={BUSINESS_DETAILS.phoneHref}
-              className="inline-flex items-center gap-2 bg-[#F47A20] hover:bg-[#d96511] text-white px-5 py-2.5 rounded-full font-bold text-sm shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5 active:scale-95"
-            >
-              <Phone className="w-4 h-4 animate-pulse" />
-              <span>Call 07770 683797</span>
-            </a>
-          </div>
+              <button
+                onClick={onOpenQuoteModal}
+                className="px-5 py-2.5 rounded-lg bg-[#E317A8] hover:bg-[#B80E86] text-white font-['Barlow_Condensed'] font-extrabold text-sm tracking-wider uppercase pink-glow hover:shadow-lg transition-all transform hover:-translate-y-0.5"
+              >
+                GET A QUOTE
+              </button>
+            </div>
 
-          {/* Mobile Hamburger Toggle & Quick Call */}
-          <div className="flex sm:hidden items-center gap-2">
-            <a
-              href={BUSINESS_DETAILS.phoneHref}
-              className="bg-[#F47A20] text-white px-3 py-1.5 rounded-full text-xs font-bold flex items-center gap-1.5"
-            >
-              <Phone className="w-3.5 h-3.5" />
-              <span>Call</span>
-            </a>
-
+            {/* Mobile Menu Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 text-gray-200 hover:text-white rounded-lg focus:outline-none"
-              aria-label="Toggle Navigation Menu"
+              className="lg:hidden p-2.5 rounded-lg bg-[#EEF2F6] text-[#0F1720] hover:text-[#E317A8] transition-colors border border-[#D9E0E7]"
+              aria-label="Toggle navigation menu"
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
           </div>
         </div>
-      </div>
+      </header>
 
       {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
-        <div className="sm:hidden bg-[#0E2238] border-b border-white/10 px-4 pt-4 pb-6 space-y-3">
-          {navLinks.map((link) => (
-            <a
-              key={link.id}
-              href={link.href}
-              onClick={() => setMobileMenuOpen(false)}
-              className="block text-base font-medium text-gray-200 hover:text-[#5AA9FF] py-2 border-b border-white/5"
-            >
-              {link.name}
-            </a>
-          ))}
+        <div className="fixed inset-0 z-40 lg:hidden">
+          <div
+            className="fixed inset-0 bg-[#0F1720]/60 backdrop-blur-xs"
+            onClick={() => setMobileMenuOpen(false)}
+          />
+          <div className="fixed top-20 right-4 left-4 max-w-sm ml-auto bg-[#FFFFFF] rounded-2xl shadow-2xl border border-[#D9E0E7] p-6 z-50 animate-in fade-in slide-in-from-top-4 duration-200">
+            <div className="flex flex-col gap-4">
+              <div className="pb-3 border-b border-[#EEF2F6]">
+                <span className="text-[11px] font-mono font-bold tracking-widest text-[#667085] uppercase">
+                  LOCAL SERVICE NAVIGATION
+                </span>
+              </div>
 
-          <div className="pt-3 grid grid-cols-2 gap-3">
-            <a
-              href={BUSINESS_DETAILS.phoneHref}
-              className="flex items-center justify-center gap-2 bg-[#1666D9] text-white py-3 rounded-xl font-bold text-sm"
-            >
-              <Phone className="w-4 h-4" />
-              <span>Call Darren</span>
-            </a>
+              {navLinks.map((link) => (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center justify-between py-2 text-base font-['Barlow_Condensed'] font-extrabold tracking-wider text-[#0F1720] hover:text-[#E317A8] uppercase transition-colors"
+                >
+                  <span>{link.label}</span>
+                  <ChevronRight className="w-4 h-4 text-[#E317A8]" />
+                </a>
+              ))}
 
-            <a
-              href={BUSINESS_DETAILS.whatsappHref}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center justify-center gap-2 bg-emerald-600 text-white py-3 rounded-xl font-bold text-sm"
-            >
-              <MessageSquare className="w-4 h-4" />
-              <span>WhatsApp</span>
-            </a>
+              <div className="pt-4 border-t border-[#EEF2F6] flex flex-col gap-3">
+                <a
+                  href={SITE_CONFIG.phoneLink}
+                  className="flex items-center justify-center gap-2.5 w-full py-3 rounded-xl bg-[#0F1720] text-white font-mono font-extrabold text-sm"
+                >
+                  <Phone className="w-4 h-4 text-[#E317A8]" />
+                  <span>CALL LEE: {SITE_CONFIG.phoneDisplay}</span>
+                </a>
+
+                <button
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    onOpenQuoteModal();
+                  }}
+                  className="w-full py-3 rounded-xl bg-[#E317A8] text-white font-['Barlow_Condensed'] font-extrabold text-base tracking-wider uppercase pink-glow"
+                >
+                  GET A QUOTE
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       )}
-    </header>
+    </>
   );
-};
+}
